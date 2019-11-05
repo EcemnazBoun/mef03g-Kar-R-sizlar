@@ -2,7 +2,7 @@
 
 ## Group Members
 
-Mehtap Çolak
-Tuğçe Uncu
-Bülent Büyük
-Oğuz Çolak
+    -Mehtap Çolak
+    -Tuğçe Uncu
+    -Bülent Büyük
+    -Oğuz Çolak
