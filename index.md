@@ -1,6 +1,6 @@
-Welcome to Kar'R'sızlar Group Progress Journal
+# Welcome to Kar'R'sızlar Group Progress Journal
 
-Group Members
+## Group Members
 -Mehtap Çolak
 -Tuğçe Uncu
 -Bülent Büyük
