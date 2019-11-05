@@ -1,4 +1,4 @@
-# Welcome to Kar'R'sızlar Group Progress Journal
+# Welcome to Kar'R'sızlar Group's Progress Journal
 
 ## Group Members
 
