@@ -7,6 +7,9 @@
     -Bülent Büyük
     -Oğuz Çolak
     
+## Final Project
+[Project Proposal](https://pjournal.github.io/mef03g-Kar-R-sizlar/kar-r-sizlar-final-project-proposal.html)
+    
 ## Car Sales Data /Group Homework 1
 [Car Sales](CarSalesData.html)
 
