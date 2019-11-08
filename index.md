@@ -16,6 +16,6 @@
 [ODD Assignment Raw Data](odd_retail_sales_2018_09.xlsx)
 
 ## EGM Assignment
-[EGM Assignment](CarSalesData.html)
+[EGM Assignment](EGM_Group_Assignment.html)
 
-[EGM Assignment Raw Data](odd_retail_sales_2018_09.xlsx)
+[EGM Assignment Raw Data](EGM_Dataset.xlsx)
