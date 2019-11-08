@@ -1,0 +1,118 @@
+---
+title: "EGM_Group_Assignment"
+author: "Mehtap Colak, Tugce Uncu, Bulent Buyuk, Oguz Colak"
+date: "07 11 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1.Introduction
+
+This is a worksheet of EGM Group Assignment.
+
+The project's dataset includes key indicators of Individual Pension System from the August 2014 through July 2019.
+
+
+# 2.Import EGM Dataset
+
+First, We downloaded dataset from the [EGM website](https://www.egm.org.tr/bilgi-merkezi/istatistikler/), then the "Rapor Tarihi" filter removed and put in the dataset as new column. 
+
+Finally in this step, we import the dataset to R Studio.
+
+````{r}
+
+library(readxl)
+egm_data<- read_excel("EGM_Dataset.xlsx",skip=2,col_names=FALSE)
+
+````
+
+
+# 3. Loading Libraries & Data Transformation
+
+We import packages we'll use at this step.
+
+We've changed column names and date format.
+
+Then we checked the dataset wtih head&tail functions.
+
+```{r warning=FALSE,message=FALSE}
+
+library(tidyverse)
+library(formattable)
+library(ggplot2)
+library(lubridate)
+
+names(egm_data) <- c("tarih", "sirket_adi", "katilimci_sayisi", "katilimci_fon_tutari", "devlet_katkisi_tutari", "katki_payi_tutari", "emekli_katilimci_sayisi", "bireysel_sozlesme_sss", "grup_bireysel_sozlesme_sss", "isveren_grup_sertifika_sss", "toplam_sss", "bireysel_sozlesme_yyt", "grup_bireysel_sozlesme_yyt", "isveren_grup_sertifika_yyt", "toplam_yyt")
+
+egm_data$tarih <- ymd(egm_data$tarih)
+
+head(egm_data)
+tail(egm_data)
+```
+
+
+# 4. Analysis
+
+## Mean Participant in First 20 Companies
+
+```{r warning=FALSE,message=FALSE}
+
+mean_participant_list <- egm_data %>%
+  group_by(sirket_adi) %>% arrange(sirket_adi) %>%
+  summarise(mean_participant = mean(katilimci_sayisi/1000000)) %>%
+  arrange(desc(mean_participant)) %>%
+  top_n(20)
+
+
+ggplot(mean_participant_list,aes(x=sirket_adi, y = mean_participant))+
+  geom_bar(stat ="identity")+
+  theme(axis.text.x = element_text(angle=90))
+```
+
+## Best 10 Companies in Market Share
+
+```{r Best 10 Companies}
+
+head_10_by_pazar_payi <- egm_data %>% 
+  group_by(sirket_adi) %>%
+  summarise(ortalama_fon_tutari=mean(katilimci_fon_tutari, na.rm = TRUE)) %>%
+  mutate(pazar_payi = percent(ortalama_fon_tutari / sum(ortalama_fon_tutari))) %>%
+  top_n(10, pazar_payi)
+
+print(head_10_by_pazar_payi)
+
+
+# Plot: Top 10 Companies by Market Share (Mean Participant Funds):
+
+ggplot(data = head_10_by_pazar_payi, aes(x=sirket_adi, y=pazar_payi, fill=sirket_adi)) +
+  geom_bar(stat="identity")+
+  coord_polar()+
+  theme(legend.position = "right", axis.text.x = element_text(angle = 0))+
+  geom_text(aes(y = pazar_payi , label = pazar_payi))+
+  labs(title = "Best 10 Company in Market Share", x="", y="")
+
+```
+
+## Total Yearly Company Size
+
+```{r analyize 2}
+
+aa <- egm_data %>% mutate(YEAR = year(tarih)) %>%  
+  group_by(sirket_adi, YEAR) %>%
+  summarise(sum_size_total=sum(toplam_yyt)) %>%
+  arrange(desc(sum_size_total)) %>%
+  filter(sum_size_total > 165000000000) 
+  print(aa)
+  
+  
+  aa %>%
+  ggplot(data = ., aes(x = sirket_adi, y = sum_size_total, fill = sirket_adi)) +
+      geom_bar(stat = "identity") + theme(axis.text = element_text(angle = 90)) +
+  facet_wrap(~ YEAR, ncol = 3) + labs(title = "Total Yearly Company Size",
+           subtitle = "Data plotted by year",
+           y = "Sum size total",
+           x = "Company") 
+```
