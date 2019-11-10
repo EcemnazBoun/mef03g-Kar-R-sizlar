@@ -1,0 +1,117 @@
+####ODD Homework Update*
+---
+title: "EGM_Group_Assignment"
+author: "Mehtap Colak, Tugce Uncu, Bulent Buyuk, Oguz Colak"
+date: "07 11 2019"
+output: html_document
+---
+
+
+```{r}
+# Create a temporary file
+library(tidyverse)
+
+library(ggplot2)
+
+library(ggrepel)
+```
+
+```{r}
+#Create a temporary file
+tmp=tempfile(fileext=".xlsx")
+#Download file from repository to the temp file
+download.file("https://github.com/pjournal/mef03-tugceu/blob/master/CarSalesAll.xlsx?raw=true", destfile=tmp,mode='wb')
+#Read that excel file using readxl package's read_excel function. You might need to adjust the parameters (skip, col_names) according to your raw file's format.
+raw_data<-readxl::read_excel(tmp,skip=2,col_names=FALSE)
+# Remove the temp file
+file.remove(tmp)
+
+```
+
+```{r}
+# Let's see our raw data
+head(raw_data)
+```
+
+```{r}
+# Use the same column names in your data.
+colnames(raw_data) <- c("brand_name","auto_dom","auto_imp","auto_total","comm_dom","comm_imp","comm_total","total_dom","total_imp","total_total","month","year")
+# Now we replace NA values with 0 and label the time period with year and month, so when we merge the data we won't be confused.
+car_data <- raw_data %>% mutate_if(is.numeric,funs(ifelse(is.na(.),0,.))) 
+
+print(car_data,width=Inf)
+```
+####Analysis
+
+###TOP 5 Best and Worst Performing Brands
+```{r}
+best_sellers <- car_data%>%
+  select(brand_name,total_total)%>%
+  group_by(brand_name)%>%
+  summarise(total_total=sum(total_total))%>%
+  arrange(desc(total_total))%>%
+  filter(row_number()<6)
+worst_sellers <- car_data%>%
+  select(brand_name,total_total)%>%
+  group_by(brand_name)%>%
+  summarise(total_total=sum(total_total))%>%
+  arrange(total_total)%>%
+  filter(row_number()<6)
+print(best_sellers, width = Inf)
+print(worst_sellers, width=Inf)
+```
+###Top 5 Best Performing Brands Total Sales Change Over The Years
+```{r}
+yearly_comparison <- car_data%>%
+  select(brand_name,total_total,year)%>%
+  group_by(brand_name,year)%>%
+  summarise(total_total=sum(total_total))%>%
+  filter(brand_name %in% c("RENAULT","VOLKSWAGEN","FIAT","FORD","HYUNDAI"))%>%
+  filter(year  %in% c(2016,2017,2018))
+
+ggplot(yearly_comparison, aes(x=year, y=total_total, color=brand_name))  +
+  geom_line() + labs(title="Top 5 Best Performing Brands Total Sales Change Over The Years")
+
+
+```
+
+###Market Leaders' Domestic Market Share
+```{r}
+domestic_market <- car_data%>%
+  select(brand_name, total_dom)%>%
+  group_by(brand_name)%>%
+  summarise(total_dom=sum(total_dom))%>%
+  mutate(domestic_market_share=total_dom/sum(total_dom)*100)%>%
+  arrange(desc(domestic_market_share))%>%
+  filter(row_number()<6)
+ggplot(domestic_market, aes(x="",y=domestic_market_share, fill=brand_name))+
+  geom_bar(width = 1, stat = "identity")+
+  coord_polar("y", start=0)+
+  theme_void()+
+  theme(legend.position="none") +
+  
+  geom_text(aes(y = domestic_market_share, label = brand_name),position = position_stack(vjust = 0.5), color = "white", size=6) +
+  scale_fill_brewer(palette="Set1")
+
+```
+
+###Top Ten Brands' auto vs commercial sales
+```{r}
+auto_vs_commercial <- car_data%>%
+  select(brand_name,auto_total,comm_total,total_total)%>%
+  group_by(brand_name)%>%
+  summarise(auto_total=sum(auto_total),comm_total=sum(comm_total),total_total=sum(total_total))%>%
+  arrange(desc(total_total))%>%
+  filter(row_number()<11)
+auto_vs_commercial_plot <- ggplot(auto_vs_commercial)+
+  geom_point(aes(auto_total, comm_total), color='#00AFBB',size=1)+
+  geom_label_repel(aes(auto_total, comm_total,label=auto_vs_commercial$brand_name),size=2)+
+  theme_classic(base_size = 10)+
+  coord_fixed(ratio = 1.2)
+auto_vs_commercial_plot
+  
+  
+```
+
+
+
