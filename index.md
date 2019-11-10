@@ -20,6 +20,8 @@
 
 [ODD Assignment Raw Data](CarSalesAll.xlsx)
 
+[Data Preparation](https://pjournal.github.io/mef03g-Kar-R-sizlar/odd-assignment-kar-r-sizlar-data-preparation.html)
+
 ## EGM Assignment
 [EGM Assignment](EGM_Group_Assignment.html)
 
