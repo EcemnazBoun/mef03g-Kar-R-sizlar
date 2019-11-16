@@ -8,7 +8,8 @@
 * [Oğuz Çolak](https://pjournal.github.io/mef03-oguzcolak/)
     
 ## Final Project
-[Project Proposal](https://pjournal.github.io/mef03g-Kar-R-sizlar/kar-r-sizlar-group-final-project-proposal.html)
+* [Project Proposal](https://pjournal.github.io/mef03g-Kar-R-sizlar/kar-r-sizlar-group-final-project-proposal.html)
+* [A Summary of The Data and Explanations](https://pjournal.github.io/mef03g-Kar-R-sizlar/final-project-phase-2.html)
     
 ## ODD Assignment
 [ODD Assignment](CarSalesData.html)
