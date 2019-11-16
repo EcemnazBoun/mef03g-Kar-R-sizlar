@@ -12,14 +12,21 @@
 * [A Summary of The Data and Explanations](https://pjournal.github.io/mef03g-Kar-R-sizlar/final-project-phase-2.html)
     
 ## ODD Assignment
-* [ODD Assignment](CarSalesData.html)
-* [ODD Assignment Raw Data](odd_retail_sales_2018_09.xlsx)
+
+[ODD Assignment](CarSalesData.html)
+
+[ODD Assignment Raw Data](odd_retail_sales_2018_09.xlsx)
 
 ## ODD Assignment Update
-* [ODD Assignment](CarSalesUpdate.html)
-* [ODD Assignment Raw Data](CarSalesAll.xlsx)
-* [Data Preparation](https://pjournal.github.io/mef03g-Kar-R-sizlar/odd-assignment-kar-r-sizlar-data-preparation.html)
+
+[ODD Assignment](CarSalesUpdate.html)
+
+[ODD Assignment Raw Data](CarSalesAll.xlsx)
+
+[Data Preparation](https://pjournal.github.io/mef03g-Kar-R-sizlar/odd-assignment-kar-r-sizlar-data-preparation.html)
 
 ## EGM Assignment
-* [EGM Assignment](EGM_Group_Assignment.html)
-* [EGM Assignment Raw Data](EGM_Dataset.xlsx)
+
+[EGM Assignment](EGM_Group_Assignment.html)
+
+[EGM Assignment Raw Data](EGM_Dataset.xlsx)
