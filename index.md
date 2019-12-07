@@ -10,6 +10,7 @@
 ## Final Project
 * [Project Proposal](https://pjournal.github.io/mef03g-Kar-R-sizlar/kar-r-sizlar-group-final-project-proposal.html)
 * [A Summary of The Data and Explanations](https://pjournal.github.io/mef03g-Kar-R-sizlar/final-project-data-explanation.html)
+* [Phase 3 Data](https://pjournal.github.io/mef03g-Kar-R-sizlar/Group_Project_Phase3_Data.Rmd)
     
 ## ODD Assignment
 * [ODD Assignment](CarSalesData.html)
