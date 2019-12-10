@@ -1,0 +1,73 @@
+---
+title: "proje-1"
+output: html_document
+---
+
+
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(ggplot2)
+library(scales)
+library(dplyr)
+
+
+```
+
+```{r}
+planning_temp=tempfile(fileext=".xlsx")
+download.file("https://raw.githubusercontent.com/pjournal/mef03g-Kar-R-sizlar/master/4-year-planning.csv?raw=true",destfile=planning_temp,mode='wb')
+planning_raw_data=read.csv(planning_temp,skip=1)
+file.remove(planning_temp)
+```
+### Preparation and Introduction of Planning Data
+
+* 4 Year Consumpiton Data: This data includes 33575 rows and 3 variables for actual consumption between January 1st, 2016 and October 31st, 2019
+
+```{r}
+# Proper Column Names
+colnames(planning_raw_data) <-  c('tarih', 'saat', 'toplam_mwh', 'dogal_gaz', 'ruzgar', 'linyit', 'tas_komur', 'ithal_komur', 'fuel_oil', 'jeotermal', 'barajli', 'nafta', 'biyokutle', 'akarsu', 'diger')
+# Proper Data Format
+planning_raw_data[,3:15]  <- as.data.frame(lapply(planning_raw_data[,3:15], function(x) as.numeric(gsub(",", ".", gsub("\\.", "", x)))))
+planning_raw_data$tarih <-as.character(planning_raw_data$tarih)
+planning_raw_data$saat <-as.character(planning_raw_data$saat)
+head(planning_raw_data, 10)
+```
+## 4 Year Planning Analysis: January 2016 - October 2019
+
+* The percentage of planning of energy sources was calculated.
+```{r}
+planning_source_distribution<-planning_raw_data%>%
+  summarise(toplam_mwh=sum(toplam_mwh),dogal_gaz=sum(dogal_gaz),ruzgar=sum(ruzgar),linyit=sum(linyit),tas_komur=sum(tas_komur),ithal_komur=sum(ithal_komur),fuel_oil=sum(fuel_oil), jeotermal=sum(jeotermal), barajli=sum(barajli), nafta=sum(nafta), biyokutle=sum(biyokutle),akarsu=sum(akarsu),diger=sum(diger))%>%
+  transmute(dogal_gaz_ratio=dogal_gaz/toplam_mwh*100, ruzgar_ratio=ruzgar/toplam_mwh*100, linyit_ratio=linyit/toplam_mwh*100, tas_komur_ratio=tas_komur/toplam_mwh*100, ithal_komur_ratio=ithal_komur/toplam_mwh*100, fuel_oil_ratio=fuel_oil/toplam_mwh*100, jeotermal_ratio=jeotermal/toplam_mwh*100, barajli_ratio=barajli/toplam_mwh*100, nafta_ratio=nafta/toplam_mwh*100, biyokutle_ratio=biyokutle/toplam_mwh*100, akarsu_ratio=akarsu/toplam_mwh*100,diger_ratio=diger/toplam_mwh*100)
+
+planning_source_distribution
+```
+
+* Distribution of the percentage of planning of energy sources is rearranged before visualization.
+
+```{r}
+
+Planning_Distribution<- t(planning_source_distribution)
+colnames(Planning_Distribution)[1] <- "Oran"
+Planning_Distribution<-as.data.frame(Planning_Distribution)
+Planning_Distribution <- Planning_Distribution %>% 
+  rownames_to_column(var = "Kaynaklar")
+Planning_Distribution %>% 
+  arrange(desc(Oran))
+
+```
+* Distribution of the percentage of planning of energy sources is shown on the pie chart.
+
+```{r}
+ggplot(Planning_Distribution, aes(x="", y=Oran, fill=factor(Kaynaklar))) + geom_bar(stat="identity", width=1) + coord_polar("y", start=0) +geom_text(aes(label = paste0(round(Oran),"%")), position = position_stack(vjust = 0.5)) + labs(x = NULL, y = NULL, fill = NULL, title = "Planning:General Graphics Distribution by Source") + theme_classic() + theme(axis.line = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          plot.title = element_text(hjust = 0.5, color = "#666666"))
+```
+
+
+
+
+
