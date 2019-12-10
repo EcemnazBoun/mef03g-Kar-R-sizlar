@@ -14,7 +14,9 @@
 * [Completed Project RMD](https://pjournal.github.io/mef03g-Kar-R-sizlar/Kar-R-sizlar-Group-Project.Rmd)
 * [Completed Project HTML](https://pjournal.github.io/mef03g-Kar-R-sizlar/Kar-R-sizlar-Group-Project.html)
 * [Completed Project Presentation PDF](https://pjournal.github.io/mef03g-Kar-R-sizlar/Kar-R-sizlar-Group-Project.pdf)
-    
+
+----------------------------------------------------------------------------------
+
 ## ODD Assignment
 * [ODD Assignment](CarSalesData.html)
 * [ODD Assignment Raw Data](odd_retail_sales_2018_09.xlsx)
