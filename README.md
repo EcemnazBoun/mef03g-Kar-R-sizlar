@@ -11,9 +11,9 @@
 * [Project Proposal](https://pjournal.github.io/mef03g-Kar-R-sizlar/kar-r-sizlar-group-final-project-proposal.html)
 * [A Summary of The Data and Explanations](https://pjournal.github.io/mef03g-Kar-R-sizlar/final-project-data-explanation.html)
 * [Phase 3 Data](https://pjournal.github.io/mef03g-Kar-R-sizlar/GP-Phase3-Data.Rmd)
-* [Completed Project RMD](https://pjournal.github.io/mef03g-Kar-R-sizlar/Kar-R-sizlar-Group-Project.Rmd)
-* [Completed Project HTML](https://pjournal.github.io/mef03g-Kar-R-sizlar/Kar-R-sizlar-Group-Project.html)
-* [Completed Project Presentation PDF](https://pjournal.github.io/mef03g-Kar-R-sizlar/Kar-R-sizlar-Group-Project.pdf)
+* [Completed Project RMD](https://pjournal.github.io/mef03g-Kar-R-sizlar/KarRsızlar-Term-Project.Rmd)
+* [Completed Project HTML](https://pjournal.github.io/mef03g-Kar-R-sizlar/KarRsızlar-Term-Project.html)
+* [Completed Project Presentation PDF](https://pjournal.github.io/mef03g-Kar-R-sizlar/KarRsızlar-Term-Project.pdf)
 
 ----------------------------------------------------------------------------------
 
